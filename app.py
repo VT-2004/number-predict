@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 # Get the allowed origin from environment variables
 # If FRONTEND_URL is not set, it defaults to a common development port or a placeholder
-allowed_frontend_urls_str = os.getenv('FRONTEND_URL', 'http://localhost:5500,http://127.0.0.1:5500')
+allowed_frontend_urls_str = os.getenv('https://number-predict-rouge.vercel.app,http://localhost:5500,http://127.0.0.1:5500')
 allowed_frontend_urls = [url.strip() for url in allowed_frontend_urls_str.split(',')]
 
 CORS(app, resources={r"/predict/*": {"origins": allowed_frontend_urls}})
