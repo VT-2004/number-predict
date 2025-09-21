@@ -3,3 +3,4 @@ Flask-Cors==4.0.1
 Pillow==10.3.0
 tensorflow==2.16.1
 gunicorn
+python-dotenv

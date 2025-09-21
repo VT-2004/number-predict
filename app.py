@@ -6,12 +6,27 @@ from flask_cors import CORS
 from PIL import Image
 import os
 import io
+from dotenv import load_dotenv # Import load_dotenv
+
+# --- Load Environment Variables ---
+load_dotenv() # This line loads variables from a .env file if it exists
 
 # --- Flask App Setup ---
 app = Flask(__name__)
-# The CORS fix: This allows requests from *any* origin to your API.
-# This is a good solution for development and simple applications.
-CORS(app)
+
+# Get the allowed origin from environment variables
+# If FRONTEND_URL is not set, it defaults to a common development port or a placeholder
+allowed_frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:3000') 
+# You can also make it a list if you expect multiple origins
+# allowed_frontend_urls_str = os.getenv('FRONTEND_URLS', 'http://localhost:3000')
+# allowed_frontend_urls = [url.strip() for url in allowed_frontend_urls_str.split(',')]
+
+
+# The CORS fix: This now uses the environment variable
+CORS(app, resources={r"/predict/*": {"origins": allowed_frontend_url}})
+# If using a list of URLs:
+# CORS(app, resources={r"/predict/*": {"origins": allowed_frontend_urls}})
+
 
 # --- Model Loading ---
 # We load the model here to ensure it's loaded only once.
