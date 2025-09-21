@@ -3,4 +3,3 @@ Flask-Cors
 Pillow
 tensorflow
 gunicorn
-python-dotenv
